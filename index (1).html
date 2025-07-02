@@ -1,0 +1,207 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xalvek - NeuroMap Analyzer</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #333;
+      --header-bg: #0d47a1;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    header {
+      background-color: var(--header-bg);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+    header nav {
+      margin-top: 10px;
+    }
+    header nav button {
+      background: none;
+      border: none;
+      color: white;
+      margin: 0 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+    h1, h2 {
+      color: #0d47a1;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    select, input[type="text"], textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #0d47a1;
+      color: white;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #09418c;
+    }
+    #output {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e3f2fd;
+      border-left: 5px solid #1976d2;
+      white-space: pre-line;
+    }
+    .history {
+      margin-top: 40px;
+      background: #f1f1f1;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 style="color:white;">Xalvek</h1>
+    <p>Analyze your cognitive patterns based on neuroscientific dimensions</p>
+    <nav>
+      <button onclick="showAbout()">About</button>
+      <button onclick="window.location.href='mailto:contact.xalvek@gmail.com'">Contact</button>
+      <button onclick="alert('Login feature not supported yet')">Login</button>
+      <button onclick="alert('Create Account not available yet')">Create Account</button>
+      <button onclick="alert('Logged out (simulated)')">Logout</button>
+    </nav>
+  </header>  <div class="container">
+    <form id="neuroForm">
+      <label for="idea">What is the thought you'd like to analyze?</label>
+      <textarea id="idea" placeholder="e.g., I might be overthinking this."></textarea><label for="brainRegion">① Brain Region</label>
+  <select id="brainRegion">
+    <option value="Frontal Lobe">Frontal Lobe</option>
+    <option value="Amygdala">Amygdala</option>
+    <option value="Hippocampus">Hippocampus</option>
+    <option value="Temporal Lobe">Temporal Lobe</option>
+  </select>
+
+  <label for="operation">② Cognitive Operation</label>
+  <select id="operation">
+    <option value="Recall">Recall</option>
+    <option value="Comprehension">Comprehension</option>
+    <option value="Analysis">Analysis</option>
+    <option value="Decision-Making">Decision-Making</option>
+    <option value="Creativity">Creativity</option>
+  </select>
+
+  <label for="depth">③ Depth of Thought</label>
+  <select id="depth">
+    <option value="Automatic Thought">Automatic Thought</option>
+    <option value="Passing Thought">Passing Thought</option>
+    <option value="Analytical Thought">Analytical Thought</option>
+    <option value="Reflective Thought">Reflective Thought</option>
+    <option value="Existential Thought">Existential Thought</option>
+  </select>
+
+  <label for="emotion">④ Emotion</label>
+  <select id="emotion">
+    <option value="Fear">Fear</option>
+    <option value="Sadness">Sadness</option>
+    <option value="Curiosity">Curiosity</option>
+    <option value="Hope">Hope</option>
+    <option value="Guilt">Guilt</option>
+  </select>
+
+  <label for="time">⑤ Time Orientation</label>
+  <select id="time">
+    <option value="Past">Past</option>
+    <option value="Present">Present</option>
+    <option value="Future">Future</option>
+  </select>
+
+  <label for="selfTalk">⑥ Inner Linguistic Encoding</label>
+  <input type="text" id="selfTalk" placeholder="e.g., I might be overthinking this." />
+
+  <button type="button" onclick="analyzeIdea()">🔍 Analyze Thought</button>
+</form>
+
+<div id="output" style="display:none;"></div>
+<div class="history" id="history"></div>
+
+  </div>  <footer>
+    &copy; 2025 Xalvek — Contact: contact.xalvek@gmail.com
+  </footer>  <script>
+    const history = [];
+
+    function analyzeIdea() {
+      const idea = document.getElementById("idea").value;
+      const brain = document.getElementById("brainRegion").value;
+      const op = document.getElementById("operation").value;
+      const depth = document.getElementById("depth").value;
+      const emotion = document.getElementById("emotion").value;
+      const time = document.getElementById("time").value;
+      const talk = document.getElementById("selfTalk").value;
+      const timestamp = new Date().toLocaleString();
+
+      let result = `🧠 Thought Analysis Result\n\n`;
+      result += `• Brain Region: ${brain}\n`;
+      result += `• Cognitive Operation: ${op}\n`;
+      result += `• Depth of Thought: ${depth}\n`;
+      result += `• Emotion: ${emotion}\n`;
+      result += `• Time Orientation: ${time}\n`;
+      result += `• Inner Linguistic Encoding: "${talk}"`;
+
+      const output = document.getElementById("output");
+      output.innerText = result;
+      output.style.display = 'block';
+
+      history.push({ idea, brain, op, depth, emotion, time, talk, timestamp });
+      renderHistory();
+    }
+
+    function renderHistory() {
+      const historyDiv = document.getElementById("history");
+      historyDiv.innerHTML = "<h3>History Log</h3>";
+      history.forEach(entry => {
+        historyDiv.innerHTML += `<div><strong>${entry.timestamp}</strong><br>Idea: ${entry.idea}<br>Result: ${entry.op} in ${entry.brain}</div><hr>`;
+      });
+    }
+
+    function showAbout() {
+      alert("Xalvek is a cognitive tool designed to help you explore your own mental processes using neuroscience-based categories. It analyzes your thoughts based on your selections and gives you psychological insight and suggestions.");
+    }
+  </script></body>
+</html>
